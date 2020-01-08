@@ -52,7 +52,7 @@ public:
 		if (ob.vandute.empty() == 1)
 			std::cout << "Nu au fost vandute masini";
 		else
-			for (auto j = ob.vandute.begin(); j != ob.stoc.end(); j++)
+			for (auto j = ob.vandute.begin(); j != ob.vandute.end(); j++)
 				os << *j;
 		return os;
 	}
@@ -79,6 +79,33 @@ protected:
 	std::vector<Monovolum> vandute;
 public:
 	Vanzare(int nr_stoc);
+	friend std::ostream& operator<<(std::ostream& os, const Vanzare<Monovolum>& ob)
+	{
+		os << "Numarul de masini din stoc sunt: " << ob.masini_stoc << std::endl << "Masinile din stoc sunt: ";
+		for (auto i = ob.stoc.begin(); i != ob.stoc.end(); i++)
+			os << *i->first;
+		os << "Numarul de masini vandute sunt: " << ob.masini_vandute << std::endl;
+		if (ob.vandute.empty() == 1)
+			std::cout << "Nu au fost vandute masini";
+		else
+			for (auto j = ob.vandute.begin(); j != ob.vandute.end(); j++)
+				os << *j;
+		return os;
+	}
+	Vanzare& operator-=(int masini)
+	{
+		this->masini_stoc -= masini;
+		for (auto itr = this->stoc.rbegin(); itr != this->stoc.rend(); itr++)
+		{
+			if (this->masini_vandute != masini)
+			{
+				this->masini_vandute++;
+				this->vandute.push_back(*itr->first);
+				this->stoc.erase(*itr);
+			}
+		}
+		return *this;
+	}
 };
 Vanzare<Monovolum>::Vanzare(int nr_stoc)
 	:masini_stoc(nr_stoc)

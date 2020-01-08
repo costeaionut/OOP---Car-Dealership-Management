@@ -12,5 +12,6 @@ void display(std::set<std::pair<Monovolum*, bool>> s)
 int main()
 {
     Vanzare<Monovolum> c(3);
-    
+    std::cout << c;
+    c -= 1;
 }
