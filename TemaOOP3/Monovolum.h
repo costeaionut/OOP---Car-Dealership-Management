@@ -14,11 +14,12 @@ public:
 	Monovolum& operator=(Monovolum& cpy);
 	friend std::ostream& operator <<(std::ostream&, const Monovolum&);
 	friend std::istream& operator >>(std::istream& is, Monovolum& ob);
+	bool getSh() { return this->sh; }
 	void showInfo();
 };
 
 Monovolum::Monovolum()
-	:Automobil("Necunoscut", -1, -1, -1), cap_pers(-1)
+	:Automobil("Necunoscut", -1, -1, -1), cap_pers(-1), sh(0)
 {}
 Monovolum::Monovolum(std::string s, int litr, int pret, int nr_pers, bool sh)
 	:Automobil(s, litr, pret), cap_pers(nr_pers), sh(sh)
@@ -51,6 +52,7 @@ Monovolum& Monovolum::operator=(Monovolum& cpy)
 	this->lungime = cpy.lungime;
 	this->cap_pers = cpy.cap_pers;
 	this->sh = cpy.sh;
+	this->ani_vechime = cpy.ani_vechime;
 	return *this;
 }
 std::ostream& operator <<(std::ostream& os, const Monovolum& ob)
@@ -95,7 +97,7 @@ std::istream& operator >>(std::istream& is, Monovolum& ob)
 		}
 	}
 	bool s;
-	std::cout << "Este masina secondhand?" << std::endl << "0.Nu" << std::endl << "1.Nu";
+	std::cout << "Este masina secondhand?" << std::endl << "0.Nu" << std::endl << "1.Da";
 	std::cout << std::endl << "0/1: ";
 	std::cin >> s;
 	Monovolum cpy(m, lit, pr, nr_per, s);
